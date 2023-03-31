@@ -1,6 +1,5 @@
 'use strict';
-const firstDialog = document.querySelector('.first-dialog');
-const secondDialog = document.querySelector('.second-dialog');
+
 const acceptBtn = document.querySelector('.accept-btn');
 const settingsBtn = document.querySelector('.settings-btn');
 const checkOne = document.querySelector('.check-one');
@@ -8,22 +7,38 @@ const checkTwo = document.querySelector('.check-two');
 const checkThree = document.querySelector('.check-three');
 const checkFour = document.querySelector('.check-four');
 const saveBtn = document.querySelector('.save-preferences');
+const dialogOne = document.querySelector('.dialog-one');
+const dialogTwo = document.querySelector('.dialog-two');
 
 
 // Check if cookies are enabled and if there are any cookies stored
 if (navigator.cookieEnabled && document.cookie) {
-  console.log('Cookies are enabled and cookies available');
-  console.log(document.cookie);
-  firstDialog.style.display = 'none';
-} else {
+  console.log('Cookies are enabled and cookies are stored');
+  printCookies();
+  } else {
   console.log('Cookies are not enabled or cookies not found');
   // Wait for 2 seconds before displaying the first dialog box
   setTimeout(() => {
-    firstDialog.style.display = 'block';
+    dialogOne.showModal();
   }, 2000);
 };
 
 // Functions!
+
+function printCookies() {
+  if(document.cookie.length > 0) {
+      const cookies = document.cookie.split('; ');
+      for (let i=0; i<cookies.length; i++) {
+          console.log(
+              decodeURIComponent(cookies[i].split('=')[0]) + ': ' + 
+              decodeURIComponent(cookies[i].split('=')[1])
+          );
+      }
+  } else {
+      console.log('No cookies found');
+  }
+}
+
 
 // Get browser name
 function getBrowserName() {
@@ -93,7 +108,6 @@ function setCookie(name, value, options = {}) {
 };
 
 
-
 //Get cookie
 function getCookie(name) {
   let matches = document.cookie.match(new RegExp(
@@ -102,6 +116,7 @@ function getCookie(name) {
 
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
+
 
 //Delete cookie
 function deleteCookie(name) {
@@ -112,13 +127,13 @@ function deleteCookie(name) {
 let browser = getBrowserName();
 let system = getOSName();
 
-
 const date = new Date();
 date.setSeconds(date.getSeconds() + 15);
 
+
 //Event listeners!
 
-//Accept all option
+//Accept all options
 acceptBtn.addEventListener('click', ()=> {
 
   setCookie('Browser', browser, {'expires': date});
@@ -128,19 +143,18 @@ acceptBtn.addEventListener('click', ()=> {
 
   console.log('Cookies saved succesfully');
   
-  console.log(getCookie('Browser'));
-  console.log(getCookie('operatingSystem'));
-  console.log(getCookie('screenWidth'));
-  console.log(getCookie('screenHeight'));
-
-  firstDialog.style.display = 'none';
+  console.log(`Browser:` + getCookie('Browser'));
+  console.log(`Operating system:` + getCookie('operatingSystem'));
+  console.log(`Screen width: ` + getCookie('screenWidth'));
+  console.log(`Screen height:` + getCookie('screenHeight'));
+  dialogOne.close();
 });
 
 
 //Settings option
 settingsBtn.addEventListener('click', ()=> {
-  firstDialog.style.display = 'none';
-  secondDialog.style.display = 'block';
+  dialogOne.close();
+  dialogTwo.showModal();
 });
 
 
@@ -162,12 +176,31 @@ saveBtn.addEventListener('click', () => {
     } if (checkFour.checked) { setCookie('screenHeight', screenHeight, {'expires': date}); 
   };
 
-  console.log(getCookie('Browser'));
-  console.log(getCookie('operatingSystem'));
-  console.log(getCookie('screenWidth'));
-  console.log(getCookie('screenHeight'));
+  console.log(`Browser: ` + getCookie('Browser'));
+  console.log(`Operating system: ` + getCookie('operatingSystem'));
+  console.log(`Screen width: ` + getCookie('screenWidth'));
+  console.log(`Screen height: ` + getCookie('screenHeight'));
 
-  secondDialog.style.display = 'none';
-  
+  dialogTwo.close();
+});
+
+
+//Close by clicking outside the dialog
+dialogOne.addEventListener('click', function(e) {
+  const rect = this.getBoundingClientRect(); 
+                                          
+  if(e.clientY < rect.top || e.clientY > rect.bottom ||
+      e.clientX < rect.left || e.clientX > rect.right) {
+        dialogOne.close();
+      }
+});
+
+dialogTwo.addEventListener('click', function(e) {
+  const rect = this.getBoundingClientRect(); 
+                                          
+  if(e.clientY < rect.top || e.clientY > rect.bottom ||
+      e.clientX < rect.left || e.clientX > rect.right) {
+          dialogTwo.close();
+      }
 });
 

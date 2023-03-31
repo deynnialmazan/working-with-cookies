@@ -29,9 +29,9 @@
                         the <span id="six">future</span> of our world.</p>
                 </div>
             </section>
-            <div class="container">
-                <div id="myModal" class="first-dialog">
-                    <div class="dialog-content-one">
+            <section>
+                <div class="container">
+                    <dialog class="dialog-one">
                         <h4>Cookies</h4>
                         <p class="p-two">
                             We use cookies to improve your experience on our website. By
@@ -42,43 +42,54 @@
                             <input type="button" class="accept-btn" value="Accept">
                             <input type="button" class="settings-btn" value="Settings">
                         </div>
-                    </div>
-                </div>
+                    </dialog>
 
-                <div id="myModal" class="second-dialog">
-                    <div class="dialog-content-two">
+                
+                    <dialog class="dialog-two">
                         <h4>Settings</h4>
 
-                        <div class="checkbox">
-                            <label class="label-container">Browser
-                                <input type="checkbox" class="check-one" checked="checked">
-                                <span class="checkmark"></span>
+                        <div class="dialog-checkbox">
+                            <label for="browser"> Browser
+                                <div>
+                                    <span class="checkbox">
+                                        <input class="check-one" name="browser" type="checkbox" checked>
+                                        <label data-on="." data-off="."></label>
+                                    </span>
+                                </div>
                             </label>
-                            
-                            <label class="label-container">Operating system
-                                <input type="checkbox" class="check-two" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            
-                            <label class="label-container">Screen width
-                                <input type="checkbox" class="check-three" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
-                            
-                            <label class="label-container">Screen height
-                                <input type="checkbox" class="check-four" checked="checked">
-                                <span class="checkmark"></span>
-                            </label>
+                            <label for="system"> Operating System
+                                <div>
+                                    <span class="checkbox">
+                                        <input class="check-two" name="system" type="checkbox" checked>
+                                        <label data-on="." data-off="."></label>
+                                    </span>
+                                </div>
+                            </label> 
+                            <label for="width"> Screen width
+                                <div>
+                                    <span class="checkbox">
+                                        <input class="check-three" name="width" type="checkbox" checked>
+                                        <label data-on="." data-off="."></label>
+                                    </span>
+                                </div>
+                            </label> 
+                            <label for="browser"> Screen heigth
+                                <div>
+                                    <span class="checkbox">
+                                        <input class="check-four" name="heigth" type="checkbox" checked>
+                                        <label data-on="." data-off="."></label>
+                                    </span>
+                                </div>
+                            </label>  
                         </div>
-
                         <div class="button">
                             <input 
                                 type="button" 
                                 class="save-preferences" 
                                 value="Save preferences">
                         </div>
-                    </div>
-                </div>
+                    </dialog>
+                </section>
             </div>
         </main>
     </body>
