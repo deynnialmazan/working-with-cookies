@@ -166,6 +166,8 @@ saveBtn.addEventListener('click', () => {
   console.log(getCookie('operatingSystem'));
   console.log(getCookie('screenWidth'));
   console.log(getCookie('screenHeight'));
+
+  secondDialog.style.display = 'none';
   
 });
 
